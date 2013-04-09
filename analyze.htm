@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Random Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
+	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
+	<!-- Force the browser to use 320x320 as the viewport size -->
+	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- Hide browser chrome (iOS only) -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<!-- Supposedly style the status bar -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="styles.css" />
+	</style>
+
+</head>
+<body>
+    <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center;">
+	<a class="transition" id="spot1" href="./question.htm" >Play</a>
+	<a class="transition" id="spot2" href="./settings.htm" >Settings</a>
+	<a class="transition" id="spot3" href="./records.htm" >Records</a>
+	<a class="transition" id="spot4" href="./records.htm" >Records</a>
+    </div>
+
+	<script type="text/javascript" src="js-lib-data.js"></script>
+	<script type="text/javascript" id="script-doc">
+//StreamAvg lets you compute the average of a group of numbers as
+//you recieve each number, (good for memory)
+//EX: the numbers 1, 5, 6, 12 are streamed to you
+//avg = StreamAvg(0,   1, 1);//1st number; returns 1
+//avg = StreamAvg(avg, 2, 5);//2nd number; returns 3
+//avg = StreamAvg(avg, 3, 6);//3rd number; returns 6
+//avg = StreamAvg(avg, 4,12);//4th number; returns 6
+function StreamAvg(lastAvg,index,value){
+	return (lastAvg * (index-1) + value) / index;
+}
+
+
+function getViewportSizes() {
+
+	var viewPortWidth;
+	var viewPortHeight;
+
+	// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	if (typeof window.innerWidth != 'undefined') {
+		viewPortWidth = window.innerWidth,
+		viewPortHeight = window.innerHeight
+	}
+
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	else if (typeof document.documentElement != 'undefined'
+	&& typeof document.documentElement.clientWidth != 'undefined'
+	&& document.documentElement.clientWidth != 0) {
+		viewPortWidth = document.documentElement.clientWidth,
+		viewPortHeight = document.documentElement.clientHeight
+	}
+
+	// older versions of IE
+	else {
+		viewPortWidth = document.getElementsByTagName('body')[0].clientWidth,
+		viewPortHeight = document.getElementsByTagName('body')[0].clientHeight
+	}
+	return [viewPortWidth, viewPortHeight];
+}
+function resizeWindow(aspectPercent){
+	var viewportSizes = getViewportSizes();
+	var divContainer = document.getElementById("game-content");
+
+	if( viewportSizes[0] < viewportSizes[1] ){
+		divContainer.style.width = viewportSizes[0]+"px";
+		divContainer.style.height = viewportSizes[0]+"px";
+		divContainer.style.fontSize = viewportSizes[0]+"px";
+	}else{
+		divContainer.style.width = viewportSizes[1]+"px";
+		divContainer.style.height = viewportSizes[1]+"px";
+		divContainer.style.fontSize = viewportSizes[1]+"px";
+	}
+
+}
+var minNum = 10;
+var maxNum = 20;
+
+function makeQuestionAddition(minNum,maxNum){
+	var op1 = Math.round( minNum + (maxNum-minNum) * Math.random() );
+	var op2 = Math.round( minNum + (maxNum-minNum) * Math.random() );
+	var sum = op1+op2;
+	var choices = [sum];
+	var i, n;
+	var pow = 1, maxPow = Math.abs(sum)+1;
+
+	// Generate +- place value errors: ie 10+10=30, 100+120 = 230
+	for( pow = 1; pow <= maxPow; pow = pow * 10 ){
+		for( i=0; i<10; i+=1 ){
+			n = Math.round( sum-pow/2+i*pow );
+			if( ! isElementInArray(n,choices) ){
+				choices.push(n);
+			}
+		}
+	}
+
+	// Generate a few totally random errors:
+	i = choices.length;
+	while( i-- ){
+		n = Math.round(sum*(1.5-Math.random()));
+		if( ! isElementInArray(n,choices) ){
+			choices.push(n);
+		}
+	}
+
+	// Add some 'concatination' type error
+	n = Math.round(op1*10+op2);
+	if( ! isElementInArray(n,choices) ){ choices.push(n); }
+	n = Math.round(op1+op2*10);
+	if( ! isElementInArray(n,choices) ){ choices.push(n); }
+
+	// Remove the correct answer & shuffle the others
+	choices.shift();
+	shuffleArray(choices);
+
+	// Take the top 3 and add the correct answer to them
+	choices = choices.slice(0,3);
+	choices.push(sum);
+
+	// Suffle the choices
+	shuffleArray(choices);
+
+	// Setup the dom elements
+	document.getElementById('choice-4').innerHTML = ""+(choices[3]);
+	document.getElementById('choice-3').innerHTML = ""+(choices[2]);
+	document.getElementById('choice-2').innerHTML = ""+(choices[1]);
+	document.getElementById('choice-1').innerHTML = ""+(choices[0]);
+	document.getElementById('question').innerHTML = ""+(op1+'+'+op2);
+
+	// Set the global isCorrect function
+	if( sum === choices[0] ){ isCorrect = isCorrect1; }
+	if( sum === choices[1] ){ isCorrect = isCorrect2; }
+	if( sum === choices[2] ){ isCorrect = isCorrect3; }
+	if( sum === choices[3] ){ isCorrect = isCorrect4; }
+}
+function isElementInArray(element,arr){
+	var i = arr.length;
+	while( i-- ){
+		if( arr[i] === element ){ return 1; }
+	}
+	return 0;
+}
+function getRandomElementFrom(list){
+	return list[Math.floor(Math.random()*list.length)];
+}
+function shuffleArray(arr){
+	var nElements = arr.length,
+	    nSwaps = 1+Math.floor(nElements / 2),
+	    p1, p2, swap;
+	while( nSwaps-- ){
+		p1 = Math.floor(nElements*Math.random());
+		p2 = Math.floor(nElements*Math.random());
+		swap = arr[p1];
+		arr[p1] = arr[p2];
+		arr[p2] = swap;
+	}
+}
+
+function createTimeQueue(){
+	var timer = {};
+	timer.functions = [];
+	timer.delays = [];
+	timer.pushEvent = function( func, delay ){
+		timer.functions.push(func);
+		timer.delays.push(delay);
+	};
+	timer.process = function(){
+		if( timer.functions.length > 0 ){
+			var func = timer.functions.shift();
+			var delay = timer.delays.shift();
+			func();
+			setTimeout(timer.process,delay);
+		}else{
+			timer.functions = [];
+			timer.delays = [];
+		}
+	};
+	return timer;
+}
+var timer = createTimeQueue();
+
+function addClass(dom,className){
+	dom.className += " "+className;
+}
+function removeClass(dom,className){
+	dom.className = dom.className.replace(className,'');
+}
+var isCorrect1 = function(index){ return (index === 1); };
+var isCorrect2 = function(index){ return (index === 2); };
+var isCorrect3 = function(index){ return (index === 3); };
+var isCorrect4 = function(index){ return (index === 4); };
+var isCorrect  = function(index){ return (index === 2); };
+function handleClick(dom,index){
+	return function(){
+		if( isCorrect(index) ){
+			addClass(dom,'correct');
+		}else{
+			addClass(dom,'incorrect');
+		}
+	}
+}
+function setupTransitions(timer,time,transitions,action){
+	// fade everything out:
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-4'), transitions[4] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-3'), transitions[3] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-2'), transitions[2] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-1'), transitions[1] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('question'), transitions[0] ) }, time );
+	// change everything
+	timer.pushEvent( function(){
+		document.getElementById('choice-4').className = "answer transition " + transitions[4];
+		document.getElementById('choice-3').className = "answer transition " + transitions[3];
+		document.getElementById('choice-2').className = "answer transition " + transitions[2];
+		document.getElementById('choice-1').className = "answer transition " + transitions[1];
+		document.getElementById('question').className = "question transition " + transitions[0];
+		// makeQuestion(100,999);
+		action();
+	}, 150);
+	// fade everything back in
+	timer.pushEvent( function(){ removeClass( document.getElementById('question'), transitions[0] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-1'), transitions[1] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-2'), transitions[2] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-3'), transitions[3] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-4'), transitions[4] ) }, time );
+	// run it
+	timer.process();
+}
+var transitions = [
+	["outRight","outRight","outRight","outRight","outRight"], // slide right
+	["outLeft","outLeft","outLeft","outLeft","outLeft"], // slide left
+	["outDown","outDown","outDown","outDown","outDown"], // slide down
+	["outDown","outLeft","outRight","outLeft","outRight"], // slide left/right
+	["outDown","outRight","outLeft","outRight","outLeft"], // slide right/left
+	["outFade","outFade","outFade","outFade","outFade"] // fade
+];
+
+function GetUrlParms(){
+	/// Parses the URL for parameters and returns an array of key-value pairs
+	// URL parameters begin after the '?' in the URL.
+	var startLocation = window.location.href.indexOf('?');
+	// We may not have any URL parameters.
+	if( startLocation == -1 ){ return null; }
+	// We do not care about the location part of the URL.
+	var parmString = window.location.href.slice(startLocation + 1);
+	// Each key/value pair is separated by an '&'.
+	var varStrings = parmString.split('&');
+	// We need to iterate over each key/value string.
+	var l = varStrings.length;
+	var variables = {};
+	for(var i=0; i<l; i+=1){
+		// Key/value strings have the form: key=value
+		var tmp = varStrings[i].split('=');
+		// We need to unescape the strings because they be encoded as follows:
+		// "hello world" -> hello+world
+		// or certain charactes are encoded as their ascii value: %20 %da
+		// We also convert the key to lower case so the program can always
+		// access via the lower case key.
+		variables[unescape(tmp[0]).toLowerCase()] = unescape(tmp[1]);
+	}
+	return variables;
+}
+
+onload = function(){
+	resizeWindow(100);
+	onresize = function(){ resizeWindow(100); };
+};
+</script>
+
+</body>
+</html>
+

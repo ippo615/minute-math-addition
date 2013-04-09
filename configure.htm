@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Random Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
+	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
+	<!-- Force the browser to use 320x320 as the viewport size -->
+	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- Hide browser chrome (iOS only) -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<!-- Supposedly style the status bar -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+    <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center; margin 3%;">
+	<!--
+		<input type="number" min="0" max="100" id="in-count" style="font-size:32px; width: 100%; border: none; border-bottom: 2px solid black;" placeholder="Count: 1-100"/>
+		<input type="number" min="0" max="100" id="in-min" style="font-size:32px; width: 100%; border: none; border-bottom: 2px solid black;" placeholder="Min: 0-999"/>
+		<input type="number" min="0" max="100" id="in-max" style="font-size:32px; width: 100%; border: none; border-bottom: 2px solid black;" placeholder="Max: 0-999"/>
+	-->
+	<div class="input-line">
+		<input type="number" min="0" max="100" id="in-count" placeholder="1-100"/>
+		<label for="in-count" >Count:</label>
+	</div>
+	<div class="input-line">
+		<input type="number" min="1" max="999" id="in-max" placeholder="1-999"/>
+		<label for="in-max" >Max:</label>
+	</div>
+	<div class="input-line">
+		<input type="number" min="0" max="998" id="in-min" placeholder="0-998"/>
+		<label for="in-min" >Min:</label>
+	</div>
+	<a id="button-play">Play</a>
+<!--
+		<input type="number" min="0" max="100" id="in-min" placeholder="Min: 0-999"/>
+		<input type="number" min="0" max="100" id="in-max" placeholder="Max: 0-999"/>
+-->
+    <!--
+    <form>
+	<div class="input-line"><label for="in-count">Count:</label><input type="number" min="0" max="100" id="in-count" value="5"/></div>
+	<div class="input-line"><label for="in-max">Max:</label><input type="number" min="0" max="999" id="in-max" value="99"/></div>
+	<div class="input-line"><label for="in-min">Min:</label><input type="number" min="0" max="999" id="in-min" value="0"/></div>
+    </form>
+    -->
+<!--	<div class="input-line">
+		<label style="position:relative; height: 64px; width:320px; font-size: 32px;" for="in-count" id="in-count-label">Count:</label>
+		<input type="number" min="0" max="100" id="in-count" value="5" style="width:1px;height:1px; font-size:1px; overflow: hidden;"/>
+	</div>
+-->
+    </div>
+
+	<script type="text/javascript" src="js-lib-data.js"></script>
+	<script type="text/javascript" src="js-lib-generic.js"></script>
+	<script type="text/javascript" id="script-doc">
+
+onload = function(){
+	resizeWindow(100);
+	onresize = function(){ resizeWindow(100); };
+	document.getElementById('button-play').onclick = function(){
+		var count = parseInt(document.getElementById('in-count').value);
+		var min = parseInt(document.getElementById('in-min').value);
+		var max = parseInt(document.getElementById('in-max').value);
+		var tmp;
+		if( count < 1   ){ count = 1; }
+		if( count > 100 ){ count = 100; }
+		if( min < 0 ){ min = 0; }
+		if( min > 998 ){ min = 998; }
+		if( max < 1 ){ max = 1; }
+		if( max > 999 ){ max = 999; }
+		if( max < min ){
+			tmp = max;
+			max = min;
+			min = tmp;
+		}
+		document.location.href = "./play.htm?count="+count+"&max="+max+"&min="+min;
+	};
+};
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Random Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
+	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
+	<!-- Force the browser to use 320x320 as the viewport size -->
+	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- Hide browser chrome (iOS only) -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<!-- Supposedly style the status bar -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
+	<link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+    <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center; margin 3%;">
+	<h1>MM: Addition</h1>
+	<a class="transition" id="spot1" href="./play.htm?count=5" >Quick Play</a>
+	<a class="transition" id="spot2" href="./configure.htm" >Custom Play</a>
+	<a class="transition" id="spot3" href="./analyze.htm" >Analyze</a>
+    </div>
+
+	<script type="text/javascript" src="js-lib-data.js"></script>
+	<script type="text/javascript" src="js-lib-generic.js"></script>
+	<script type="text/javascript" id="script-doc">
+/* TO LOOK FOR TRANSITION CSS CAPABILITY */
+/*
+	// will give vendor prefixed stuff
+	for( prop in document.body.style ){ if( prop.indexOf('Transition') > -1 ){ console.info(prop); } }
+	// will give regular
+	for( prop in document.body.style ){ if( prop.indexOf('transition') > -1 ){ console.info(prop); } }
+*/
+onload = function(){
+	resizeWindow(100);
+	onresize = function(){ resizeWindow(100); };
+};
+</script>
+
+</body>
+</html>
+
