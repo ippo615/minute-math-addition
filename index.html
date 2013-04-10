@@ -28,13 +28,22 @@
 
 </head>
 <body>
-    <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center; margin 3%;">
-	<h1>MM: Addition</h1>
-	<a class="transition" id="spot1" href="./play.htm?count=5" >Quick Play</a>
-	<a class="transition" id="spot2" href="./configure.htm" >Custom Play</a>
-	<a class="transition" id="spot3" href="./analyze.htm" >Analyze</a>
-    </div>
 
+<div id="game-content" >
+	<div class="question transition" id="question" >Addition</div>
+	<div class="answer transition " id="choice-1" ><a href="./play.htm">Quick</a></div>
+	<div class="answer transition " id="choice-2"><a href="./configure.htm">Custom</a></div>
+	<div class="answer transition " id="choice-3"><a href="./analyze.htm">Analyze</a></div>
+	<!--<div class="answer transition " id="choice-4">-</div>-->
+    </div>
+<!--
+    <div id="game-content" >
+	<div id="question transition">MM: Addition</div>
+	<a class="answer transition" id="choice-1" href="./play.htm" >Quick Play</a>
+	<a class="answer transition" id="choice-2" href="./configure.htm" >Custom Play</a>
+	<a class="answer transition" id="choice-3" href="./analyze.htm" >Analyze</a>
+    </div>
+-->
 	<script type="text/javascript" src="js-lib-data.js"></script>
 	<script type="text/javascript" src="js-lib-generic.js"></script>
 	<script type="text/javascript" id="script-doc">

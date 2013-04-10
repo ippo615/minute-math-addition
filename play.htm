@@ -28,7 +28,7 @@
 
 </head>
 <body>
-    <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center;">
+    <div id="game-content" >
 	<div class="question transition" id="question" >Begin</div>
 	<div class="answer transition " id="choice-1" >-</div>
 	<div class="answer transition " id="choice-2">-</div>
@@ -250,10 +250,10 @@ function showSessionStats(){
 	var c2 = document.getElementById('choice-2');
 	var c1 = document.getElementById('choice-1');
 	var q0 = document.getElementById('question');
-	q0.innerHTML = 'Session Stats';
-	c1.innerHTML = 'Right: '+nRight1;
-	c2.innerHTML = 'Wrong: '+(nRight2+nRight3+nRight4+nSkipped);
-	c3.innerHTML = '+'+nExp+' exp';
+	q0.innerHTML = 'Stats';
+	c1.innerHTML = '<span class="stat" >Right: '+nRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >Wrong: '+(nRight2+nRight3+nRight4+nSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >+'+nExp+' exp</span>';
 	c4.innerHTML = '';
 	q0.onclick = function(){
 		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showTotalStats);
@@ -265,10 +265,10 @@ function showTotalStats(){
 	var c2 = document.getElementById('choice-2');
 	var c1 = document.getElementById('choice-1');
 	var q0 = document.getElementById('question');
-	q0.innerHTML = 'Total Stats';
-	c1.innerHTML = 'Right: '+nTotalRight1;
-	c2.innerHTML = 'Wrong: '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped);
-	c3.innerHTML = nTotalExp+' exp';
+	q0.innerHTML = 'Total';
+	c1.innerHTML = '<span class="stat" >Right: '+nTotalRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >Wrong: '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >'+nTotalExp+' exp</span>';
 	c4.innerHTML = '';
 	q0.onclick = function(){
 		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showSessionStats);
@@ -276,10 +276,8 @@ function showTotalStats(){
 }
 var transitions = [
 	["outRight","outRight","outRight","outRight","outRight"], // slide right
-	["outLeft","outLeft","outLeft","outLeft","outLeft"], // slide left
 	["outDown","outDown","outDown","outDown","outDown"], // slide down
-	["outDown","outLeft","outRight","outLeft","outRight"], // slide left/right
-	["outDown","outRight","outLeft","outRight","outLeft"], // slide right/left
+	["outDown","outLeft","outLeft","outRight","outRight"], // slide right/left
 	["outFade","outFade","outFade","outFade","outFade"] // fade
 ];
 
@@ -316,7 +314,7 @@ var GLOBAL = {
 	// the lowest operand to use
 	minOp: 0,
 	// the highest operand to use
-	maxOp: 999
+	maxOp: 99
 };
 
 onload = function(){
@@ -328,20 +326,23 @@ onload = function(){
 	if( gUrlParms != null ){
 		if( gUrlParms.hasOwnProperty("count") ){
 			nQuestionsLeft = parseInt(gUrlParms["count"],10);
+			if( isNaN(nQuestionsLeft) ){ nQuestionsLeft = 5; }
 			// Set the infinite case to 0
-			if( nQuestionsLeft <= 0 ){
+			if( nQuestionsLeft <= 0  ){
 				nQuestionsLeft = 0;
 			}
 		}
 		if( gUrlParms.hasOwnProperty("max") ){
 			GLOBAL.maxOp = parseInt(gUrlParms["max"],10);
 			// Set the infinite case to 0
+			if( isNaN(GLOBAL.maxOp) ){ GLOBAL.maxOp = 99; }
 			if( GLOBAL.maxOp < 1 ){ GLOBAL.maxOp = 1; }
 			if( GLOBAL.maxOp > 999 ){ GLOBAL.maxOp = 999; }
 		}
 		if( gUrlParms.hasOwnProperty("min") ){
 			GLOBAL.minOp = parseInt(gUrlParms["min"],10);
 			// Set the infinite case to 0
+			if( isNaN(GLOBAL.minOp) ){ GLOBAL.minOp = 0; }
 			if( GLOBAL.minOp < 0 ){ GLOBAL.minOp = 0; }
 			if( GLOBAL.minOp > 998 ){ GLOBAL.minOp = 998; }
 		}

@@ -29,16 +29,18 @@ function resizeWindow(aspectPercent){
 	var divContainer = document.getElementById("game-content");
 
 	// if we can fit everything in the current with
-	if( viewportSizes[0]*aspectPercent/100 < viewportSizes[1] ){
+	//if( viewportSizes[0]*aspectPercent/100 < viewportSizes[1] ){
+	if( viewportSizes[0] < viewportSizes[1] ){
 		divContainer.style.width = viewportSizes[0]+"px";
-		divContainer.style.height = viewportSizes[0]*aspectPercent/100+"px";
-		divContainer.style.fontSize = viewportSizes[0]*aspectPercent/100+"px";
-	}else{
-		divContainer.style.width = viewportSizes[1]*100/aspectPercent+"px";
 		divContainer.style.height = viewportSizes[1]+"px";
 		divContainer.style.fontSize = viewportSizes[1]+"px";
+		divContainer.className = "vertical";
+	}else{
+		divContainer.style.width = viewportSizes[0]+"px";
+		divContainer.style.height = viewportSizes[1]+"px";
+		divContainer.style.fontSize = viewportSizes[1]+"px";
+		divContainer.className = "horizontal";
 	}
-
 }
 function GetUrlParms(){
 	/// Parses the URL for parameters and returns an array of key-value pairs
