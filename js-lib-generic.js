@@ -88,3 +88,33 @@ function createTimeQueue(){
 	};
 	return timer;
 }
+
+function isElementInArray(element,arr){
+	var i = arr.length;
+	while( i-- ){
+		if( arr[i] === element ){ return 1; }
+	}
+	return 0;
+}
+function getRandomElementFrom(list){
+	return list[Math.floor(Math.random()*list.length)];
+}
+function shuffleArray(arr){
+	var nElements = arr.length,
+	    nSwaps = 1+Math.floor(nElements / 2),
+	    p1, p2, swap;
+	while( nSwaps-- ){
+		p1 = Math.floor(nElements*Math.random());
+		p2 = Math.floor(nElements*Math.random());
+		swap = arr[p1];
+		arr[p1] = arr[p2];
+		arr[p2] = swap;
+	}
+}
+
+function addClass(dom,className){
+	dom.className += " "+className;
+}
+function removeClass(dom,className){
+	dom.className = dom.className.replace(className,'');
+}
