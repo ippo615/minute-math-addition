@@ -105,7 +105,23 @@ var transitions = [
 ];
 
 function erase(){
-	data.clearAll();
+	// data.clearAll(); // doesnt work on android - so just save everything as 0
+
+	data.save('nTotalAsked',0);
+	data.save('nTotalRight1',0);
+	data.save('nTotalRight2',0);
+	data.save('nTotalRight3',0);
+	data.save('nTotalRight4',0);
+	data.save('nTotalSkipped',0);
+	data.save('nTotalExp',0);
+	data.save('nAsked',0);
+	data.save('nRight1',0);
+	data.save('nRight2',0);
+	data.save('nRight3',0);
+	data.save('nRight4',0);
+	data.save('nSkipped',0);
+	data.save('nExp',0);
+
 	nTotalAsked = data.loadValid('nTotalAsked',0,data.int10);
 	nTotalRight1 = data.loadValid('nTotalRight1',0,data.int10);
 	nTotalRight2 = data.loadValid('nTotalRight2',0,data.int10);
@@ -120,6 +136,7 @@ function erase(){
 	nRight4 = data.loadValid('nRight4',0,data.int10);
 	nSkipped = data.loadValid('nSkipped',0,data.int10);
 	nExp = data.loadValid('nExp',0,data.int10);
+
 	showTotalStatsAnalisys();
 }
 
