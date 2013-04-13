@@ -118,3 +118,28 @@ function addClass(dom,className){
 function removeClass(dom,className){
 	dom.className = dom.className.replace(className,'');
 }
+
+// Hopefully my data saving library has loaded before this is called
+function loadTranslation(){
+	var language = data.loadValid('lang','NONE',data.any);
+	if( language === 'NONE' ){
+		language = window.navigator.userLanguage || window.navigator.language;
+	}
+	// language = 'es'; // FOR TESTING ONLY !!! !!! !!! !!! !!!
+	var reLangs = {
+		es: /es/gi,
+		en: /en/gi
+	}
+	var lang;
+	for( lang in reLangs ){
+		if( reLangs[lang].test(language) ){
+			// Load that language
+			var newScript = document.createElement('script');
+			newScript.type = "text/javascript";
+			newScript.src = "lang/"+lang+".js";
+			document.body.appendChild(newScript);
+			// add an onload callback to the script...
+			// or just let it put stuff in the global namespace
+		}
+	}
+}

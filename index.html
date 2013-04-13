@@ -2,27 +2,16 @@
 <html >
 <head>
 	<meta charset="UTF-8">
-	<title>Random Addition</title>
+	<title>Minute Math Addition</title>
 	<meta name="author" content="Andrew Ippoliti">
 
 	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
 	     It should give you some extra options and a 'js console' -->
 
-	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
-	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
-	<!-- Force the browser to use 320x320 as the viewport size -->
-	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
 	<!-- Force the browser to use the device width as the viewport with -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!-- Hide browser chrome (iOS only) -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-
-	<!-- Supposedly style the status bar -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	
 	<link rel="stylesheet" href="styles.css" />
 
@@ -36,17 +25,9 @@
 	<div class="answer transition " id="choice-3"><a href="./analyze.htm">Analyze</a></div>
 	<div class="answer transition " id="choice-4"><a href="javascript:window.close()">Exit</a></div>
     </div>
-<!--
-    <div id="game-content" >
-	<div id="question transition">MM: Addition</div>
-	<a class="answer transition" id="choice-1" href="./play.htm" >Quick Play</a>
-	<a class="answer transition" id="choice-2" href="./configure.htm" >Custom Play</a>
-	<a class="answer transition" id="choice-3" href="./analyze.htm" >Analyze</a>
-    </div>
--->
 	<script type="text/javascript" src="js-lib-data.js"></script>
 	<script type="text/javascript" src="js-lib-generic.js"></script>
-	<script type="text/javascript" id="script-doc">
+	<script type="text/javascript" >
 /* TO LOOK FOR TRANSITION CSS CAPABILITY */
 /*
 	// will give vendor prefixed stuff
@@ -54,7 +35,18 @@
 	// will give regular
 	for( prop in document.body.style ){ if( prop.indexOf('transition') > -1 ){ console.info(prop); } }
 */
+
+// Must be called before the onload because it loads more data
+// specifically the `msg` variable that has all of the strings in
+// the desired language
+loadTranslation();
+
 onload = function(){
+	document.getElementById('question').innerHTML = msg['addition'];
+	document.getElementById('choice-1').childNodes[0].innerHTML = msg['quick'];
+	document.getElementById('choice-2').childNodes[0].innerHTML = msg['customize'];
+	document.getElementById('choice-3').childNodes[0].innerHTML = msg['analyze'];
+	document.getElementById('choice-4').childNodes[0].innerHTML = msg['language'];
 	resizeWindow(100);
 	onresize = function(){ resizeWindow(100); };
 };

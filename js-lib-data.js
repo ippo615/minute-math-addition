@@ -15,7 +15,7 @@ var libData = (function($self){
 	};
 
 	// validation functions
-	var any = function(value){ return value; };
+	$self.any = function(value){ return value; };
 	$self.int10 = function(value){ return parseInt(value,10); };
 	$self.float = function(value){ return parseFloat(value); };
 

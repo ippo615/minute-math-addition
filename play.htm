@@ -2,7 +2,7 @@
 <html >
 <head>
 	<meta charset="UTF-8">
-	<title>Random Addition</title>
+	<title>Minute Math Addition</title>
 	<meta name="author" content="Andrew Ippoliti">
 
 	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
@@ -11,18 +11,8 @@
 	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
-	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
-	<!-- Force the browser to use 320x320 as the viewport size -->
-	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
 	<!-- Force the browser to use the device width as the viewport with -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!-- Hide browser chrome (iOS only) -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-
-	<!-- Supposedly style the status bar -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	
 	<link rel="stylesheet" href="styles.css" />
 
@@ -203,10 +193,38 @@ function setupTransitions(timer,time,transitions,action){
 	// run it
 	timer.process();
 }
+function setupStatTransitions(timer,time,transitions,action){
+	// fade everything out:
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-4'), transitions[4] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-3'), transitions[3] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-2'), transitions[2] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('choice-1'), transitions[1] ) }, time );
+	timer.pushEvent( function(){ addClass( document.getElementById('question'), transitions[0] ) }, time );
+	// change everything
+	timer.pushEvent( function(){
+		document.getElementById('choice-4').className = "answer transition " + transitions[4];
+		document.getElementById('choice-3').className = "answer transition " + transitions[3];
+		document.getElementById('choice-2').className = "answer transition incorrect " + transitions[2];
+		document.getElementById('choice-1').className = "answer transition correct " + transitions[1];
+		document.getElementById('question').className = "question transition " + transitions[0];
+		// makeQuestion(100,999);
+		action();
+	}, time/2);
+	// fade everything back in
+	timer.pushEvent( function(){ removeClass( document.getElementById('question'), transitions[0] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-1'), transitions[1] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-2'), transitions[2] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-3'), transitions[3] ) }, time );
+	timer.pushEvent( function(){ removeClass( document.getElementById('choice-4'), transitions[4] ) }, time );
+	// run it
+	timer.process();
+}
 function nextQuestion(){
 	if( nQuestionsLeft-- !== 0 ){
 		makeQuestionAddition(GLOBAL.minOp,GLOBAL.maxOp);
 	}else{
+		document.getElementById('choice-2').className = "answer transition incorrect ";
+		document.getElementById('choice-1').className = "answer transition correct ";
 		document.getElementById('choice-4').onclick = null;
 		document.getElementById('choice-3').onclick = null;
 		document.getElementById('choice-2').onclick = null;
@@ -221,13 +239,13 @@ function showSessionStats(){
 	var c2 = document.getElementById('choice-2');
 	var c1 = document.getElementById('choice-1');
 	var q0 = document.getElementById('question');
-	q0.innerHTML = 'Stats';
-	c1.innerHTML = '<span class="stat" >Right: '+nRight1+'</span>';
-	c2.innerHTML = '<span class="stat" >Wrong: '+(nRight2+nRight3+nRight4+nSkipped)+'</span>';
-	c3.innerHTML = '<span class="stat" >+'+nExp+' exp</span>';
+	q0.innerHTML = msg["stats"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nRight2+nRight3+nRight4+nSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >+'+nExp+'</span>';
 	c4.innerHTML = '';
 	q0.onclick = function(){
-		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showTotalStats);
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showTotalStats);
 	};
 }
 function showTotalStats(){
@@ -236,13 +254,13 @@ function showTotalStats(){
 	var c2 = document.getElementById('choice-2');
 	var c1 = document.getElementById('choice-1');
 	var q0 = document.getElementById('question');
-	q0.innerHTML = 'Total';
-	c1.innerHTML = '<span class="stat" >Right: '+nTotalRight1+'</span>';
-	c2.innerHTML = '<span class="stat" >Wrong: '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped)+'</span>';
-	c3.innerHTML = '<span class="stat" >'+nTotalExp+' exp</span>';
+	q0.innerHTML = msg["total"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nTotalRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >'+nTotalExp+'</span>';
 	c4.innerHTML = '';
 	q0.onclick = function(){
-		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showSessionStats);
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showSessionStats);
 	};
 }
 var transitions = [
@@ -287,6 +305,7 @@ var GLOBAL = {
 	maxOp: 99
 };
 
+loadTranslation();
 onload = function(){
 	// var rEnabled = /on|enable|yes|true|1/gi;
 	// var rDisabled= /off|disable|no|false|0/gi;
@@ -301,6 +320,8 @@ onload = function(){
 			if( nQuestionsLeft <= 0  ){
 				nQuestionsLeft = 0;
 			}
+		}else{
+			nQuestionsLeft = data.loadValid('playCount',5,data.int10);
 		}
 		if( gUrlParms.hasOwnProperty("max") ){
 			GLOBAL.maxOp = parseInt(gUrlParms["max"],10);
@@ -308,6 +329,8 @@ onload = function(){
 			if( isNaN(GLOBAL.maxOp) ){ GLOBAL.maxOp = 99; }
 			if( GLOBAL.maxOp < 1 ){ GLOBAL.maxOp = 1; }
 			if( GLOBAL.maxOp > 999 ){ GLOBAL.maxOp = 999; }
+		}else{
+			GLOBAL.maxOp = data.loadValid('playMax',99,data.int10);
 		}
 		if( gUrlParms.hasOwnProperty("min") ){
 			GLOBAL.minOp = parseInt(gUrlParms["min"],10);
@@ -315,6 +338,8 @@ onload = function(){
 			if( isNaN(GLOBAL.minOp) ){ GLOBAL.minOp = 0; }
 			if( GLOBAL.minOp < 0 ){ GLOBAL.minOp = 0; }
 			if( GLOBAL.minOp > 998 ){ GLOBAL.minOp = 998; }
+		}else{
+			GLOBAL.minOp = data.loadValid('playMin',0,data.int10);
 		}
 	}
 	if( GLOBAL.minOp > GLOBAL.maxOp ){
@@ -323,6 +348,8 @@ onload = function(){
 		GLOBAL.minOp = tmp;
 	}
 	//console.info('Only '+nQuestionsLeft+' questions');
+
+	document.getElementById("question").innerHTML = msg["begin"];
 
 	resizeWindow(GLOBAL.aspectRatio);
 	onresize = function(){ resizeWindow(GLOBAL.aspectRatio); };

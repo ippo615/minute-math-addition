@@ -2,27 +2,16 @@
 <html >
 <head>
 	<meta charset="UTF-8">
-	<title>Random Addition</title>
+	<title>Minute Math Addition</title>
 	<meta name="author" content="Andrew Ippoliti">
 
 	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
 	     It should give you some extra options and a 'js console' -->
 
-	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0;">-->
-	<!--<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />-->
-	<!-- Force the browser to use 320x320 as the viewport size -->
-	<!--<meta name="viewport" content="width=320, height=320, user-scalable=no" />-->
 	<!-- Force the browser to use the device width as the viewport with -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<!-- Hide browser chrome (iOS only) -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-
-	<!-- Supposedly style the status bar -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	
 	<link rel="stylesheet" href="styles.css" />
 
@@ -31,15 +20,15 @@
     <div id="game-content" style="position: relative; margin: auto; overflow: hidden; text-align: center; margin 3%;">
 	<div class="input-line">
 		<input type="number" min="0" max="100" id="in-count" placeholder="1-100"/>
-		<label for="in-count" >Count:</label>
+		<label for="in-count" id="in-count-label" >Count:</label>
 	</div>
 	<div class="input-line">
 		<input type="number" min="1" max="999" id="in-max" placeholder="1-999"/>
-		<label for="in-max" >Max:</label>
+		<label for="in-max" id="in-max-label" >Max:</label>
 	</div>
 	<div class="input-line">
 		<input type="number" min="0" max="998" id="in-min" placeholder="0-998"/>
-		<label for="in-min" >Min:</label>
+		<label for="in-min" id="in-min-label" >Min:</label>
 	</div>
 	<div class="answer" style="margin: 2%; height: 20%; font-size: 20%; line-height: 99%;"><a id="button-play">Play</a></div>
     </div>
@@ -48,7 +37,12 @@
 	<script type="text/javascript" src="js-lib-generic.js"></script>
 	<script type="text/javascript" id="script-doc">
 
+loadTranslation();
 onload = function(){
+	document.getElementById('in-max-label').innerHTML = msg['max'];
+	document.getElementById('in-min-label').innerHTML = msg['min'];
+	document.getElementById('in-count-label').innerHTML = msg['count'];
+	document.getElementById('button-play').innerHTML = msg['play'];
 	resizeWindow(100);
 	onresize = function(){ resizeWindow(100); };
 	document.getElementById('button-play').onclick = function(){
@@ -71,6 +65,15 @@ onload = function(){
 			min = tmp;
 		}
 		document.location.href = "./play.htm?count="+count+"&max="+max+"&min="+min;
+
+		// Incase passing query strings causes the browser to not go to the other page
+		// Save the parameters and go another way
+		data.save('playCount',count);
+		data.save('playMax',max);
+		data.save('playMin',min);
+		setTimeout(function(){
+			document.location.href = "./play.htm";
+		},900);
 	};
 };
 </script>
