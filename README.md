@@ -11,7 +11,7 @@ load `index.html` into any browser.
  [latest zip archive]: https://github.com/ippo615/minute-math-addition/archive/master.zip
 
 ### Just testing?
-Try going to the [live example](https://ippo615.github.io/minute-math-addition/)
+Try going to the [live example](http://ippo615.github.io/minute-math-addition/)
 
 ### Cloning
 You can clone this repository by running:
