@@ -138,12 +138,15 @@ var GLOBAL = {
 	maxOp: 99
 };
 
-loadTranslation('../lang/');
-onload = function(){
-	resizeToMax(GLOBAL.aspectRatio);
-	onresize = function(){ resizeToMax(GLOBAL.aspectRatio); };
+function startPage(){
+	resizeToMax(document.getElementById("game-content"));
+	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
 	document.getElementById('choice-4').onclick = erase;
 	showSessionStatsAnalisys();
+}
+
+onload = function(){
+	loadTranslation('../lang/',startPage);
 };
 </script>
 

@@ -1,6 +1,7 @@
 ### April 13, 2013
-Improved code quality. Changed `escape` to `encodeURIComponent`. Organized the files.
-Releasing under MIT license.
+Improved code quality. Changed `escape` to `encodeURIComponent`. Organized
+the files. Releasing under MIT license. Fixed bug in IE script loading. Made
+some functions more generic.
 
 ### April 12, 2013
 Added spanish translation and methods for loading a specific translation.

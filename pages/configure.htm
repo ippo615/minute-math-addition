@@ -36,15 +36,13 @@
 	<script type="text/javascript" src="../lib/js-lib-data.js"></script>
 	<script type="text/javascript" src="../lib/js-lib-generic.js"></script>
 	<script type="text/javascript" id="script-doc">
-
-loadTranslation('../lang/');
-onload = function(){
+function startPage(){
 	document.getElementById('in-max-label').innerHTML = msg['max'];
 	document.getElementById('in-min-label').innerHTML = msg['min'];
 	document.getElementById('in-count-label').innerHTML = msg['count'];
 	document.getElementById('button-play').innerHTML = msg['play'];
-	resizeToMax(100);
-	onresize = function(){ resizeToMax(100); };
+	resizeToMax(document.getElementById("game-content"));
+	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
 	document.getElementById('button-play').onclick = function(){
 		var count = parseInt(document.getElementById('in-count').value);
 		var min = parseInt(document.getElementById('in-min').value);
@@ -75,6 +73,9 @@ onload = function(){
 			document.location.href = "./pages/play.htm";
 		},900);
 	};
+}
+onload = function(){
+	loadTranslation('../lang/',startPage);
 };
 </script>
 

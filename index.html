@@ -36,19 +36,19 @@
 	for( prop in document.body.style ){ if( prop.indexOf('transition') > -1 ){ console.info(prop); } }
 */
 
-// Must be called before the onload because it loads more data
-// specifically the `msg` variable that has all of the strings in
-// the desired language
-loadTranslation('./lang/');
 
-onload = function(){
+function startPage(){
 	document.getElementById('question').innerHTML = msg['addition'];
 	document.getElementById('choice-1').childNodes[0].innerHTML = msg['quick'];
 	document.getElementById('choice-2').childNodes[0].innerHTML = msg['customize'];
 	document.getElementById('choice-3').childNodes[0].innerHTML = msg['analyze'];
 	document.getElementById('choice-4').childNodes[0].innerHTML = msg['language'];
-	resizeToMax(100);
-	onresize = function(){ resizeToMax(100); };
+	resizeToMax(document.getElementById("game-content"));
+	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
+}
+
+onload = function(){
+	loadTranslation('./lang/',startPage);
 };
 </script>
 

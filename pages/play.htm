@@ -253,8 +253,7 @@ var GLOBAL = {
 	maxOp: 99
 };
 
-loadTranslation('../lang/');
-onload = function(){
+function startPage(){
 	// var rEnabled = /on|enable|yes|true|1/gi;
 	// var rDisabled= /off|disable|no|false|0/gi;
 	// if( rEnabled.test(parameterStr) ){ enable(); }
@@ -299,8 +298,8 @@ onload = function(){
 
 	document.getElementById("question").innerHTML = msg["begin"];
 
-	resizeToMax(GLOBAL.aspectRatio);
-	onresize = function(){ resizeToMax(GLOBAL.aspectRatio); };
+	resizeToMax(document.getElementById("game-content"));
+	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
 	document.getElementById("question").onclick = function(){
 		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),nextQuestion);
 	};
@@ -308,6 +307,10 @@ onload = function(){
 	document.getElementById('choice-2').onclick = handleChoiceClick(document.getElementById('choice-2'),2);
 	document.getElementById('choice-3').onclick = handleChoiceClick(document.getElementById('choice-3'),3);
 	document.getElementById('choice-4').onclick = handleChoiceClick(document.getElementById('choice-4'),4);	
+}
+
+onload = function(){
+	loadTranslation('../lang/',startPage);
 };
 
 </script>
