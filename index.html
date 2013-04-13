@@ -13,20 +13,20 @@
 	<!-- Force the browser to use the device width as the viewport with -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="./style/styles.css" />
 
 </head>
 <body>
 
 <div id="game-content" >
 	<div class="question transition" id="question" >Addition</div>
-	<div class="answer transition " id="choice-1" ><a href="./play.htm">Quick</a></div>
-	<div class="answer transition " id="choice-2"><a href="./configure.htm">Custom</a></div>
-	<div class="answer transition " id="choice-3"><a href="./analyze.htm">Analyze</a></div>
+	<div class="answer transition " id="choice-1" ><a href="./pages/play.htm">Quick</a></div>
+	<div class="answer transition " id="choice-2"><a href="./pages/configure.htm">Custom</a></div>
+	<div class="answer transition " id="choice-3"><a href="./pages/analyze.htm">Analyze</a></div>
 	<div class="answer transition " id="choice-4"><a href="javascript:window.close()">Exit</a></div>
     </div>
-	<script type="text/javascript" src="js-lib-data.js"></script>
-	<script type="text/javascript" src="js-lib-generic.js"></script>
+	<script type="text/javascript" src="./lib/js-lib-data.js"></script>
+	<script type="text/javascript" src="./lib/js-lib-generic.js"></script>
 	<script type="text/javascript" >
 /* TO LOOK FOR TRANSITION CSS CAPABILITY */
 /*
@@ -39,7 +39,7 @@
 // Must be called before the onload because it loads more data
 // specifically the `msg` variable that has all of the strings in
 // the desired language
-loadTranslation();
+loadTranslation('./lang/');
 
 onload = function(){
 	document.getElementById('question').innerHTML = msg['addition'];
@@ -47,8 +47,8 @@ onload = function(){
 	document.getElementById('choice-2').childNodes[0].innerHTML = msg['customize'];
 	document.getElementById('choice-3').childNodes[0].innerHTML = msg['analyze'];
 	document.getElementById('choice-4').childNodes[0].innerHTML = msg['language'];
-	resizeWindow(100);
-	onresize = function(){ resizeWindow(100); };
+	resizeToMax(100);
+	onresize = function(){ resizeToMax(100); };
 };
 </script>
 

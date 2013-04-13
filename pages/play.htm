@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Minute Math Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link rel="stylesheet" href="../style/styles.css" />
+
+</head>
+<body>
+    <div id="game-content" >
+	<div class="question transition" id="question" >Begin</div>
+	<div class="answer transition " id="choice-1" >-</div>
+	<div class="answer transition " id="choice-2">-</div>
+	<div class="answer transition " id="choice-3">-</div>
+	<div class="answer transition " id="choice-4">-</div>
+    </div>
+
+	<script type="text/javascript" src="../lib/js-lib-data.js"></script>
+	<script type="text/javascript" src="../lib/js-lib-generic.js"></script>
+	<script type="text/javascript" id="script-doc">
+
+function makeQuestionAddition(minNum,maxNum){
+	var op1 = Math.round( minNum + (maxNum-minNum) * Math.random() );
+	var op2 = Math.round( minNum + (maxNum-minNum) * Math.random() );
+	var sum = op1+op2;
+	var choices = [sum];
+	var i, n;
+	var pow = 1, maxPow = Math.abs(sum)+1;
+
+	// Generate +- place value errors: ie 10+10=30, 100+120 = 230
+	for( pow = 1; pow <= maxPow; pow = pow * 10 ){
+		for( i=0; i<10; i+=1 ){
+			n = Math.round( sum-pow/2+i*pow );
+			if( ! isElementInArray(n,choices) ){
+				choices.push(n);
+			}
+		}
+	}
+
+	// Generate a few totally random errors:
+	i = choices.length;
+	while( i-- ){
+		n = Math.round(sum*(1.5-Math.random()));
+		if( ! isElementInArray(n,choices) ){
+			choices.push(n);
+		}
+	}
+
+	// Add some 'concatination' type error
+	n = Math.round(op1*10+op2);
+	if( ! isElementInArray(n,choices) ){ choices.push(n); }
+	n = Math.round(op1+op2*10);
+	if( ! isElementInArray(n,choices) ){ choices.push(n); }
+
+	// Remove the correct answer & shuffle the others
+	choices.shift();
+	shuffleArray(choices);
+
+	// Take the top 3 and add the correct answer to them
+	choices = choices.slice(0,3);
+	choices.push(sum);
+
+	// Suffle the choices
+	shuffleArray(choices);
+
+	// Setup the dom elements
+	document.getElementById('choice-4').innerHTML = ""+(choices[3]);
+	document.getElementById('choice-3').innerHTML = ""+(choices[2]);
+	document.getElementById('choice-2').innerHTML = ""+(choices[1]);
+	document.getElementById('choice-1').innerHTML = ""+(choices[0]);
+	document.getElementById('question').innerHTML = ""+(op1+'+'+op2);
+
+	// Set the global isCorrect function
+	if( sum === choices[0] ){ isCorrect = isCorrect1; }
+	if( sum === choices[1] ){ isCorrect = isCorrect2; }
+	if( sum === choices[2] ){ isCorrect = isCorrect3; }
+	if( sum === choices[3] ){ isCorrect = isCorrect4; }
+
+	// For debugging:
+	// console.info(nTotalAsked + ' questions asked: [' + nTotalRight1 + ',' + nTotalRight2 + ',' + nTotalRight3 + ',' + nTotalRight4 + ',' + nTotalSkipped + ']');
+
+	// Set the base experience points based on the 'length' of the question
+	baseExp = (op1+'+'+op2).length;
+
+	// Increase the global count of questions asked
+	nTotalAsked += 1;
+	nAsked += 1;
+	// 
+	isAnsweredCorrectly = 0;
+	nAttempts = 0;
+	// Save the data (should be done when the question is answered)
+}
+var isCorrect1 = function(index){ return (index === 1); };
+var isCorrect2 = function(index){ return (index === 2); };
+var isCorrect3 = function(index){ return (index === 3); };
+var isCorrect4 = function(index){ return (index === 4); };
+var isCorrect  = function(index){ return (index === 2); };
+function handleChoiceClick(dom,index){
+	return function(){
+		if( ! isAnsweredCorrectly ){
+			nAttempts += 1;
+			if( isCorrect(index) ){
+				isAnsweredCorrectly = 1;
+				switch( nAttempts ){
+					case 1:
+						nTotalRight1 += 1;
+						nRight1 += 1;
+						nTotalExp += baseExp*4;
+						nExp += baseExp*4;
+						break;
+					case 2:
+						nTotalRight2 += 1;
+						nRight2 += 1;
+						nTotalExp += baseExp*2;
+						nExp += baseExp*2;
+						break;
+					case 3: 
+						nTotalRight3 += 1;
+						nRight3 += 1;
+						nTotalExp += baseExp;
+						nExp += baseExp;
+						break;
+					case 4: 
+						nTotalRight4 += 1;
+						nRight4 += 1;
+						break;
+					default:
+						nTotalSkipped += 1;
+						nSkipped += 1;
+						break;
+				}
+				// Save the data (totals)
+				data.save('nTotalAsked',nTotalAsked);
+				data.save('nTotalRight1',nTotalRight1);
+				data.save('nTotalRight2',nTotalRight2);
+				data.save('nTotalRight3',nTotalRight3);
+				data.save('nTotalRight4',nTotalRight4);
+				data.save('nTotalSkipped',nTotalSkipped);
+				data.save('nTotalExp',nTotalExp);
+				// Save the data (session)
+				data.save('nAsked',nAsked);
+				data.save('nRight1',nRight1);
+				data.save('nRight2',nRight2);
+				data.save('nRight3',nRight3);
+				data.save('nRight4',nRight4);
+				data.save('nSkipped',nSkipped);
+				data.save('nExp',nExp);
+			}
+		}
+		
+		// Give visual feedback
+		if( isCorrect(index) ){
+			addClass(dom,'correct');
+		}else{
+			addClass(dom,'incorrect');
+		}
+	}
+}
+function nextQuestion(){
+	if( nQuestionsLeft-- !== 0 ){
+		makeQuestionAddition(GLOBAL.minOp,GLOBAL.maxOp);
+	}else{
+		document.getElementById('choice-2').className = "answer transition incorrect ";
+		document.getElementById('choice-1').className = "answer transition correct ";
+		document.getElementById('choice-4').onclick = null;
+		document.getElementById('choice-3').onclick = null;
+		document.getElementById('choice-2').onclick = null;
+		document.getElementById('choice-1').onclick = null;
+		showSessionStats();
+	}
+}
+function showSessionStats(){
+	// show stats
+	var c4 = document.getElementById('choice-4');
+	var c3 = document.getElementById('choice-3');
+	var c2 = document.getElementById('choice-2');
+	var c1 = document.getElementById('choice-1');
+	var q0 = document.getElementById('question');
+	q0.innerHTML = msg["stats"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nRight2+nRight3+nRight4+nSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >+'+nExp+'</span>';
+	c4.innerHTML = '';
+	q0.onclick = function(){
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showTotalStats);
+	};
+}
+function showTotalStats(){
+	var c4 = document.getElementById('choice-4');
+	var c3 = document.getElementById('choice-3');
+	var c2 = document.getElementById('choice-2');
+	var c1 = document.getElementById('choice-1');
+	var q0 = document.getElementById('question');
+	q0.innerHTML = msg["total"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nTotalRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >'+nTotalExp+'</span>';
+	c4.innerHTML = '';
+	q0.onclick = function(){
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showSessionStats);
+	};
+}
+var transitions = [
+	["outRight","outRight","outRight","outRight","outRight"], // slide right
+	["outDown","outDown","outDown","outDown","outDown"], // slide down
+	["outDown","outLeft","outLeft","outRight","outRight"], // slide right/left
+	["outFade","outFade","outFade","outFade","outFade"] // fade
+];
+
+var isAnsweredCorrectly = 0;
+var nAttempts = 0;
+var baseExp = 0;
+// Totals for every time played
+var nTotalAsked = data.loadValid('nTotalAsked',0,data.int10);
+var nTotalRight1 = data.loadValid('nTotalRight1',0,data.int10);
+var nTotalRight2 = data.loadValid('nTotalRight2',0,data.int10);
+var nTotalRight3 = data.loadValid('nTotalRight3',0,data.int10);
+var nTotalRight4 = data.loadValid('nTotalRight4',0,data.int10);
+var nTotalSkipped = data.loadValid('nTotalSkipped',0,data.int10);
+var nTotalExp = data.loadValid('nTotalExp',0,data.int10);
+// Just for this session
+var nAsked = 0;
+var nRight1 = 0;
+var nRight2 = 0;
+var nRight3 = 0;
+var nRight4 = 0;
+var nSkipped = 0;
+var nExp = 0;
+
+var timer = createTimeQueue();
+
+var nQuestionsLeft = 5;
+
+var GLOBAL = {
+	// height = width * aspectRatio / 100
+	aspectRatio: 100,
+	// time between animated events
+	animDelay: 300,
+	// the lowest operand to use
+	minOp: 0,
+	// the highest operand to use
+	maxOp: 99
+};
+
+loadTranslation('../lang/');
+onload = function(){
+	// var rEnabled = /on|enable|yes|true|1/gi;
+	// var rDisabled= /off|disable|no|false|0/gi;
+	// if( rEnabled.test(parameterStr) ){ enable(); }
+	var gUrlParms = GetUrlParms();
+	var tmp;
+	if( gUrlParms != null ){
+		if( gUrlParms.hasOwnProperty("count") ){
+			nQuestionsLeft = parseInt(gUrlParms["count"],10);
+			if( isNaN(nQuestionsLeft) ){ nQuestionsLeft = 5; }
+			// Set the infinite case to 0
+			if( nQuestionsLeft <= 0  ){
+				nQuestionsLeft = 0;
+			}
+		}else{
+			nQuestionsLeft = data.loadValid('playCount',5,data.int10);
+		}
+		if( gUrlParms.hasOwnProperty("max") ){
+			GLOBAL.maxOp = parseInt(gUrlParms["max"],10);
+			// Set the infinite case to 0
+			if( isNaN(GLOBAL.maxOp) ){ GLOBAL.maxOp = 99; }
+			if( GLOBAL.maxOp < 1 ){ GLOBAL.maxOp = 1; }
+			if( GLOBAL.maxOp > 999 ){ GLOBAL.maxOp = 999; }
+		}else{
+			GLOBAL.maxOp = data.loadValid('playMax',99,data.int10);
+		}
+		if( gUrlParms.hasOwnProperty("min") ){
+			GLOBAL.minOp = parseInt(gUrlParms["min"],10);
+			// Set the infinite case to 0
+			if( isNaN(GLOBAL.minOp) ){ GLOBAL.minOp = 0; }
+			if( GLOBAL.minOp < 0 ){ GLOBAL.minOp = 0; }
+			if( GLOBAL.minOp > 998 ){ GLOBAL.minOp = 998; }
+		}else{
+			GLOBAL.minOp = data.loadValid('playMin',0,data.int10);
+		}
+	}
+	if( GLOBAL.minOp > GLOBAL.maxOp ){
+		tmp = GLOBAL.maxOp;
+		GLOBAL.maxOp = GLOBAL.minOp;
+		GLOBAL.minOp = tmp;
+	}
+	//console.info('Only '+nQuestionsLeft+' questions');
+
+	document.getElementById("question").innerHTML = msg["begin"];
+
+	resizeToMax(GLOBAL.aspectRatio);
+	onresize = function(){ resizeToMax(GLOBAL.aspectRatio); };
+	document.getElementById("question").onclick = function(){
+		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),nextQuestion);
+	};
+	document.getElementById('choice-1').onclick = handleChoiceClick(document.getElementById('choice-1'),1);
+	document.getElementById('choice-2').onclick = handleChoiceClick(document.getElementById('choice-2'),2);
+	document.getElementById('choice-3').onclick = handleChoiceClick(document.getElementById('choice-3'),3);
+	document.getElementById('choice-4').onclick = handleChoiceClick(document.getElementById('choice-4'),4);	
+};
+
+</script>
+
+</body>
+</html>
+
