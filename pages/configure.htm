@@ -40,9 +40,12 @@ function startPage(){
 	document.getElementById('in-max-label').innerHTML = msg['max'];
 	document.getElementById('in-min-label').innerHTML = msg['min'];
 	document.getElementById('in-count-label').innerHTML = msg['count'];
-	document.getElementById('button-play').innerHTML = msg['play'];
+
 	resizeToMax(document.getElementById("game-content"));
 	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
+
+	//document.getElementById('button-play').innerHTML = msg['play'];
+	setupLink(document.getElementById('button-play'),msg['play'],'javascript');
 	document.getElementById('button-play').onclick = function(){
 		var count = parseInt(document.getElementById('in-count').value);
 		var min = parseInt(document.getElementById('in-min').value);
