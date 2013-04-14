@@ -30,7 +30,7 @@
 		<input type="number" min="0" max="998" id="in-min" placeholder="0-998"/>
 		<label for="in-min" id="in-min-label" >Min:</label>
 	</div>
-	<div class="answer" style="margin: 2%; height: 20%; font-size: 20%; line-height: 99%;"><a id="button-play">Play</a></div>
+	<div class="answer" style="height: 20%; font-size: 20%;"><a id="button-play">Play</a></div>
     </div>
 
 	<script type="text/javascript" src="../lib/js-lib-data.js"></script>
@@ -42,7 +42,7 @@ function startPage(){
 	document.getElementById('in-count-label').innerHTML = msg['count'];
 	document.getElementById('button-play').innerHTML = msg['play'];
 	resizeToMax(document.getElementById("game-content"));
-	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
+	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
 	document.getElementById('button-play').onclick = function(){
 		var count = parseInt(document.getElementById('in-count').value);
 		var min = parseInt(document.getElementById('in-min').value);

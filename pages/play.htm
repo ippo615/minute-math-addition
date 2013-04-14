@@ -299,14 +299,14 @@ function startPage(){
 	document.getElementById("question").innerHTML = msg["begin"];
 
 	resizeToMax(document.getElementById("game-content"));
-	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
-	document.getElementById("question").onclick = function(){
+	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
+	document.getElementById("question").onclick = makeDebounced( function(){
 		setupTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),nextQuestion);
-	};
-	document.getElementById('choice-1').onclick = handleChoiceClick(document.getElementById('choice-1'),1);
-	document.getElementById('choice-2').onclick = handleChoiceClick(document.getElementById('choice-2'),2);
-	document.getElementById('choice-3').onclick = handleChoiceClick(document.getElementById('choice-3'),3);
-	document.getElementById('choice-4').onclick = handleChoiceClick(document.getElementById('choice-4'),4);	
+	}, GLOBAL.animDelay*5, true);
+	document.getElementById('choice-1').onclick = makeDebounced(handleChoiceClick(document.getElementById('choice-1'),1), GLOBAL.animDelay, true);
+	document.getElementById('choice-2').onclick = makeDebounced(handleChoiceClick(document.getElementById('choice-2'),2), GLOBAL.animDelay, true);
+	document.getElementById('choice-3').onclick = makeDebounced(handleChoiceClick(document.getElementById('choice-3'),3), GLOBAL.animDelay, true);
+	document.getElementById('choice-4').onclick = makeDebounced(handleChoiceClick(document.getElementById('choice-4'),4), GLOBAL.animDelay, true);	
 }
 
 onload = function(){

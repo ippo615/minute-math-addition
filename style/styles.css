@@ -54,12 +54,12 @@ h1 {
 	font-size: 20%;
 	font-weight: 900;
 }
-a{
+a, .link{
 	color:#595959;
-	display:block;
 	font-size:60%;
-	position:relative;
-	padding:1% 2%;
+	vertical-align: middle;
+	display: inline-block;
+	padding: 1% 0;
 }
 .stat {
 	font-size: 60%;
@@ -94,8 +94,7 @@ a{
 	border-bottom: 2px solid black;
 	vertical-align: middle;
 	background: none;
-	height: 20%;
-	line-height: 120%;
+	/*height: 20%;*/
 	-webkit-user-select:text;
 }
 input {
@@ -106,6 +105,7 @@ input {
 	vertical-align: middle;
 	background: none;
 	-webkit-user-select:text;
+	padding: 0.1% 0;
 }
 label {
 	float: left;
@@ -116,6 +116,7 @@ label {
 	border: none;
 	vertical-align: middle;
 	background: none;
+	padding: 0.1% 0;
 }
 
 .answer,.question{
@@ -138,17 +139,17 @@ label {
 
 #choice-1, #choice-2, #choice-3, #choice-4 { position: absolute; }
 
-.horizontal #question { top:  0%; left:  0%; width: 100%; height: 35%; line-height: 99%; font-size: 35%; }
-.horizontal #choice-1 { top: 37%; left: -1%; width:  48%; height: 28%; line-height: 99%; font-size: 28%; margin: 2%;}
-.horizontal #choice-2 { top: 67%; left: -1%; width:  48%; height: 28%; line-height: 99%; font-size: 28%; margin: 2%;}
-.horizontal #choice-3 { top: 37%; left: 49%; width:  48%; height: 28%; line-height: 99%; font-size: 28%; margin: 2%;}
-.horizontal #choice-4 { top: 67%; left: 49%; width:  48%; height: 28%; line-height: 99%; font-size: 28%; margin: 2%;}
+.horizontal #question { top:  0%; left:  0%; width: 100%; height: 35%;  font-size: 35%; }
+.horizontal #choice-1 { top: 37%; left: -1%; width:  48%; height: 28%;  font-size: 28%; margin: 2%;}
+.horizontal #choice-2 { top: 67%; left: -1%; width:  48%; height: 28%;  font-size: 28%; margin: 2%;}
+.horizontal #choice-3 { top: 37%; left: 49%; width:  48%; height: 28%;  font-size: 28%; margin: 2%;}
+.horizontal #choice-4 { top: 67%; left: 49%; width:  48%; height: 28%;  font-size: 28%; margin: 2%;}
 
-.vertical #question { top:  0%; left:  0%; width: 100%; height: 20%; line-height: 99%; font-size: 20%; }
-.vertical #choice-1 { top: 21%; left: -1%; width:  98%; height: 16%; line-height: 99%; font-size: 16%; margin: 2%;}
-.vertical #choice-2 { top: 38%; left: -1%; width:  98%; height: 16%; line-height: 99%; font-size: 16%; margin: 2%;}
-.vertical #choice-3 { top: 55%; left: -1%; width:  98%; height: 16%; line-height: 99%; font-size: 16%; margin: 2%;}
-.vertical #choice-4 { top: 72%; left: -1%; width:  98%; height: 16%; line-height: 99%; font-size: 16%; margin: 2%;}
+.vertical #question { top:  0%; left:  0%; width: 100%; height: 20%; font-size: 20%; }
+.vertical #choice-1 { top: 21%; left: -1%; width:  98%; height: 16%; font-size: 16%; margin: 2%;}
+.vertical #choice-2 { top: 38%; left: -1%; width:  98%; height: 16%; font-size: 16%; margin: 2%;}
+.vertical #choice-3 { top: 55%; left: -1%; width:  98%; height: 16%; font-size: 16%; margin: 2%;}
+.vertical #choice-4 { top: 72%; left: -1%; width:  98%; height: 16%; font-size: 16%; margin: 2%;}
 
 .transition{
 	-moz-transition:all 300ms;

@@ -36,15 +36,20 @@
 	for( prop in document.body.style ){ if( prop.indexOf('transition') > -1 ){ console.info(prop); } }
 */
 
-
 function startPage(){
 	document.getElementById('question').innerHTML = msg['addition'];
+	/*
 	document.getElementById('choice-1').childNodes[0].innerHTML = msg['quick'];
 	document.getElementById('choice-2').childNodes[0].innerHTML = msg['customize'];
 	document.getElementById('choice-3').childNodes[0].innerHTML = msg['analyze'];
 	document.getElementById('choice-4').childNodes[0].innerHTML = msg['language'];
+	*/
+	setupLink(document.getElementById('choice-1'),msg['quick'],'./pages/play.htm');
+	setupLink(document.getElementById('choice-2'),msg['customize'],'./pages/configure.htm');
+	setupLink(document.getElementById('choice-3'),msg['analyze'],'./pages/analyze.htm');
+	setupLink(document.getElementById('choice-4'),msg['language'],'javascript:');
 	resizeToMax(document.getElementById("game-content"));
-	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
+	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
 }
 
 onload = function(){
