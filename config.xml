@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.acipo.math.addtion" 
+        version   = "0.0.1">
+
+    <name>Minute Math Addition</name>
+
+    <description>
+	A simple addition game.
+    </description>
+
+    <author href="http://github.com/ippo615/minute-math-addition" email="andrewippoliti@gmail.com">
+        Andrew Ippoliti
+    </author>
+
+    <preference name="permissions" value="none"/>
+
+</widget>
