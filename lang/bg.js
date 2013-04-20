@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Bulgarian",
+	"language-key":"bg",
+	"begin":"започвам",
+	"right":"коригира",
+	"wrong":"погрешно",
+	"erase":"изтриете",
+	"quick":"бърз",
+	"customize":"персонализирате",
+	"analyze":"анализирам",
+	"language":"език",
+	"addition":"допълнение",
+	"max":"максимален",
+	"min":"минимум",
+	"count":"количество",
+	"play":"играя",
+	"total":"общо",
+	"stats":"статистика"
+};

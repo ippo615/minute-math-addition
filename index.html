@@ -47,7 +47,7 @@ function startPage(){
 	setupLink(document.getElementById('choice-1'),msg['quick'],'./pages/play.htm');
 	setupLink(document.getElementById('choice-2'),msg['customize'],'./pages/configure.htm');
 	setupLink(document.getElementById('choice-3'),msg['analyze'],'./pages/analyze.htm');
-	setupLink(document.getElementById('choice-4'),msg['language'],'javascript:');
+	setupLink(document.getElementById('choice-4'),msg['language'],'./pages/select-language.htm');
 	resizeToMax(document.getElementById("game-content"));
 	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
 }

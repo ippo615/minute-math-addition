@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Japanese",
+	"language-key":"ja-jp",
+	"begin":"始まる",
+	"right":"右",
+	"wrong":"間違った",
+	"erase":"消去する",
+	"quick":"クイック",
+	"customize":"カスタマイズ",
+	"analyze":"分析する",
+	"language":"言語",
+	"addition":"追加",
+	"max":"最大",
+	"min":"最小",
+	"count":"カウント",
+	"play":"遊ぶ",
+	"total":"合計",
+	"stats":"統計"
+};

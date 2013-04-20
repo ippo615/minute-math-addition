@@ -1,3 +1,7 @@
+### April 19, 2013
+Finished several translations. Added an interface to select a language (it
+needs some improvement). Improve `addClass` and `removeClass`.
+
 ### April 14, 2013
 Centered all text (vertically & horizontally). Made buttons more responsive
 by increasing the "clickable" area. 'Debounced' the buttons so that you 

@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Lithuanian",
+	"language-key":"lt",
+	"begin":"pradėti",
+	"right":"teisė",
+	"wrong":"blogai",
+	"erase":"ištrinti",
+	"quick":"greitai",
+	"customize":"pritaikyti",
+	"analyze":"analizuoti",
+	"language":"kalba",
+	"addition":"papildymas",
+	"max":"maksimalus",
+	"min":"minimalus",
+	"count":"tikėtis",
+	"play":"žaisti",
+	"total":"visas",
+	"stats":"statistika"
+};

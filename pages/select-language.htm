@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Minute Math Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link rel="stylesheet" href="../style/styles.css" />
+<style type="text/css">
+.lang-btn {
+	background-color:#F6F6F6;
+	border:1px solid #ABABAB;
+	border-radius:18px;
+	box-shadow:inset 0 1px 2px rgba(255,255,255,1), 0 1px 0 rgba(26,26,26,0.08);
+	color:#595959;
+	display:block;
+	vertical-align: middle;
+	float: left;
+	cursor: pointer;
+}
+.horizontal .lang-page .lang-btn{
+	width:  22%;
+	height: 20%;
+	font-size: 20%;
+	margin: 1%;
+}
+.vertical .lang-page .lang-btn{
+	width:  28%;
+	height: 12%;
+	font-size: 12%;
+	margin: 2%;
+}
+.lang-page { width: 100%; height: 100%; margin: 1%; position: absolute; top: 0;}
+.lang-selected {
+	color:#595999;
+	background-color:#9999F9;
+}
+</style>
+</head>
+<body>
+    <div id="game-content" class="transition" style="position: absolute;">
+      <!--<div class="lang-page" id="page-1">
+	<div class="lang-btn transition " id="" >en-us</div>
+	<div class="lang-btn transition " id="">ja-jp</div>
+	<div class="lang-btn transition " id="">es-us</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">it</div>
+	<div class="lang-btn transition " id="">&gt;&gt;</div>
+      </div>-->
+    </div>
+
+	<script type="text/javascript" src="../lib/js-lib-data.js"></script>
+	<script type="text/javascript" src="../lib/js-lib-generic.js"></script>
+	<script type="text/javascript" id="script-doc">
+
+
+var GLOBAL = {
+	// height = width * aspectRatio / 100
+	aspectRatio: 100,
+	// time between animated events
+	animDelay: 300,
+	// the lowest operand to use
+	minOp: 0,
+	// the highest operand to use
+	maxOp: 99
+};
+
+var langs = ["af", "ar", "be", "bg", "ca", "cs-cz", "da-dk", "de-de", "el-gr", "en-us", "es-es", "es-us", "et", "fa", "fi-fi", "fil", "fr-fr", "hi-in", "hr", "hu-hu", "it-it", "iw-il", "ja-jp", "ko-kr", "lt", "lv", "ms", "nl-nl", "no-no", "pl-pl", "pt-br", "pt-pt", "ro", "ru-ru", "sk", "sl", "sr", "sv-se", "sw", "th", "tr-tr", "uk", "vi", "zh-cn", "zh-tw"];
+
+function SetLanguage(language,id){
+	return function(){
+		data.save('lang',language);
+		var btns = document.getElementsByTagName('div');
+		var i = btns.length;
+		while( i-- ){
+			removeClass(btns[i],'lang-selected');
+		}
+		addClass(document.getElementById(id),'lang-selected');
+	};
+}
+function pageScroll(num){
+	return function(){
+		document.getElementById('lang-page-0').style.left = (-(num-0) * 100)+'%';
+		document.getElementById('lang-page-1').style.left = (-(num-1) * 100)+'%';
+		document.getElementById('lang-page-2').style.left = (-(num-2) * 100)+'%';
+	};
+}
+
+function startPage(){
+	var l = langs.length, i, nPerPage, btn, page, nPages, pages, isReady, gameArea, lang;
+	lang = data.loadValid('lang', 'NONE', data.any);
+	gameArea = document.getElementById('game-content');
+	nPages = 0;
+	isReady = 0;
+	nPerPage = 16;
+	for( i=0; i<l; i+=1 ){
+		if( i % nPerPage === 0 ){
+			if( isReady === 1 ){
+				// Add the next page button
+				btn = document.createElement('div');
+				btn.id = 'to-page-'+Math.floor(i/nPerPage);
+				btn.appendChild(document.createTextNode('>>'));
+				btn.onclick = pageScroll(Math.floor(i/nPerPage));
+				btn.className = "lang-btn transition"
+				page.appendChild(btn);
+
+				// Add this page
+				gameArea.appendChild(page);
+			}
+			page = document.createElement('div');
+			page.className = 'lang-page transition';
+			page.style.left = (Math.floor(i/nPerPage)*100)+'%';
+			page.id = "lang-page-"+Math.floor(i/nPerPage);
+		}else{
+			btn = document.createElement('div');
+			btn.id = langs[i];
+			btn.appendChild(document.createTextNode(langs[i]));
+			btn.onclick = SetLanguage(langs[i],langs[i]);
+			if( langs[i] === lang ){
+				btn.className = "lang-btn transition lang-selected";
+			}else{
+				btn.className = "lang-btn transition";
+			}
+			page.appendChild(btn);
+			isReady = 1;
+		}
+	}
+	// Add the next page button
+	btn = document.createElement('div');
+	btn.id = 'to-page-'+Math.floor(i/nPerPage);
+	btn.appendChild(document.createTextNode('>>'));
+	btn.onclick = pageScroll(Math.floor(i/nPerPage));
+	btn.className = "lang-btn transition"
+	page.appendChild(btn);
+	// Add this page
+	gameArea.appendChild(page);
+
+	resizeToMax(document.getElementById("game-content"));
+	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);	
+}
+
+onload = function(){
+	loadTranslation('../lang/',startPage);
+};
+
+</script>
+
+</body>
+</html>
+
+

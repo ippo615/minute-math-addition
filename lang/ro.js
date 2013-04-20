@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Romanian",
+	"language-key":"ro",
+	"begin":"începe",
+	"right":"dreapta",
+	"wrong":"greșit",
+	"erase":"șterge",
+	"quick":"rapid",
+	"customize":"personaliza",
+	"analyze":"analiza",
+	"language":"limbă",
+	"addition":"plus",
+	"max":"maxim",
+	"min":"minim",
+	"count":"număra",
+	"play":"juca",
+	"total":"total",
+	"stats":"statistică"
+};

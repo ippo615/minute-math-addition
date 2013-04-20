@@ -1,4 +1,6 @@
 var msg = {
+	"language-name":"English (United States)",
+	"language-key":"en-us",
 	"begin":"Begin",
 	"right":"Right",
 	"wrong":"Wrong",

@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Finnish",
+	"language-key":"fi-fi",
+	"begin":"alkaa",
+	"right":"oikea",
+	"wrong":"väärin",
+	"erase":"pyyhkiä",
+	"quick":"nopeasti",
+	"customize":"muokata",
+	"analyze":"analysoida",
+	"language":"kieli",
+	"addition":"lisäys",
+	"max":"maksimi",
+	"min":"vähimmäismäärä",
+	"count":"laskea",
+	"play":"pelata",
+	"total":"kokonais-",
+	"stats":"tilasto"
+};

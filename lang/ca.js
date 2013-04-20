@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Catalan",
+	"language-key":"ca",
+	"begin":"començar",
+	"right":"corregir",
+	"wrong":"mal",
+	"erase":"esborrar",
+	"quick":"ràpid",
+	"customize":"personalitzar",
+	"analyze":"analitzar",
+	"language":"idioma",
+	"addition":"addició",
+	"max":"màxim",
+	"min":"mínim",
+	"count":"quantitat",
+	"play":"jugar",
+	"total":"total",
+	"stats":"estadística"
+};

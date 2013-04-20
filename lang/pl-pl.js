@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Polish",
+	"language-key":"pl-pl",
+	"begin":"rozpocząć",
+	"right":"prawo",
+	"wrong":"źle",
+	"erase":"wymazać",
+	"quick":"szybki",
+	"customize":"dostosować",
+	"analyze":"analizować",
+	"language":"język",
+	"addition":"dodatek",
+	"max":"maksymalny",
+	"min":"minimum",
+	"count":"liczyć",
+	"play":"grać",
+	"total":"łączny",
+	"stats":"statystyka"
+};
