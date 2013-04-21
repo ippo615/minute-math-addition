@@ -106,21 +106,34 @@ function pageScroll(num){
 }
 
 function startPage(){
-	var l = langs.length, i, nPerPage, btn, page, nPages, pages, isReady, gameArea, lang;
+	var l = langs.length, i, nPerPage, btn, page, nPages, pages, isReady, gameArea, lang, pageNum;
 	lang = data.loadValid('lang', 'NONE', data.any);
 	gameArea = document.getElementById('game-content');
 	nPages = 0;
 	isReady = 0;
-	nPerPage = 16;
+	nPerPage = 15;
 	for( i=0; i<l; i+=1 ){
 		if( i % nPerPage === 0 ){
 			if( isReady === 1 ){
 				// Add the next page button
+				pageNum = Math.floor(i/nPerPage);
+				// If this isn't the first page add a 'previous' button
+				if( pageNum !== 1 ){
+					btn = document.createElement('div');
+					btn.id = 'to-page-prev-'+pageNum;
+					btn.className = "lang-btn transition"
+					//setupButton(btn,'<<',pageScroll(pageNum-1)));
+					//setupButton(btn,'⇠',pageScroll(Math.floor(i/nPerPage)-2));
+					btn.appendChild(document.createTextNode('⇠'));
+					btn.onclick = pageScroll(Math.floor(i/nPerPage)-2);
+					page.appendChild(btn);
+				}
 				btn = document.createElement('div');
-				btn.id = 'to-page-'+Math.floor(i/nPerPage);
-				btn.appendChild(document.createTextNode('>>'));
-				btn.onclick = pageScroll(Math.floor(i/nPerPage));
+				btn.id = 'to-page-next-'+pageNum;
 				btn.className = "lang-btn transition"
+				//setupButton(btn,'⇢',pageScroll(pageNum));
+				btn.appendChild(document.createTextNode('⇢'));
+				btn.onclick = pageScroll(pageNum);
 				page.appendChild(btn);
 
 				// Add this page
@@ -133,13 +146,14 @@ function startPage(){
 		}else{
 			btn = document.createElement('div');
 			btn.id = langs[i];
-			btn.appendChild(document.createTextNode(langs[i]));
-			btn.onclick = SetLanguage(langs[i],langs[i]);
 			if( langs[i] === lang ){
 				btn.className = "lang-btn transition lang-selected";
 			}else{
 				btn.className = "lang-btn transition";
 			}
+			setupButton(btn,langs[i],SetLanguage(langs[i],langs[i]));
+			//btn.appendChild(document.createTextNode(langs[i]));
+			//btn.onclick = SetLanguage(langs[i],langs[i]);
 			page.appendChild(btn);
 			isReady = 1;
 		}
@@ -147,9 +161,10 @@ function startPage(){
 	// Add the next page button
 	btn = document.createElement('div');
 	btn.id = 'to-page-'+Math.floor(i/nPerPage);
-	btn.appendChild(document.createTextNode('>>'));
-	btn.onclick = pageScroll(Math.floor(i/nPerPage));
 	btn.className = "lang-btn transition"
+	btn.appendChild(document.createTextNode('⇠'));
+	btn.onclick = pageScroll(Math.floor(i/nPerPage)-2);
+	//setupButton(btn,'⇠',pageScroll(Math.floor(i/nPerPage)-2));
 	page.appendChild(btn);
 	// Add this page
 	gameArea.appendChild(page);

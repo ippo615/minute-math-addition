@@ -1,3 +1,6 @@
+### April 20, 2013
+Improved language selection.
+
 ### April 19, 2013
 Finished several translations. Added an interface to select a language (it
 needs some improvement). Improve `addClass` and `removeClass`.

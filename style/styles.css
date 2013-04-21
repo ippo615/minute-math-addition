@@ -43,6 +43,7 @@ border-spacing:0;
 	-webkit-user-select:none; /* Prevents forms from working */
 	-webkit-touch-callout:none;
 	-webkit-tap-highlight-color:transparent;
+	/* -webkit-backface-visibility: hidden; */ /* Prevent animation flickering */
 	margin:0;
 }
 
