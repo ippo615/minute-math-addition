@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Minute Math Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link rel="stylesheet" href="./style/styles.css" />
+
+</head>
+<body>
+
+<div id="game-content" >
+	<div class="question transition" id="question" >Addition</div>
+	<div class="answer transition " id="choice-1" ><a href="./pages/play.htm">Quick</a></div>
+	<div class="answer transition " id="choice-2"><a href="./pages/configure.htm">Custom</a></div>
+	<div class="answer transition " id="choice-3"><a href="./pages/analyze.htm">Analyze</a></div>
+	<div class="answer transition " id="choice-4"><a href="javascript:window.close()">Exit</a></div>
+    </div>
+	<script type="text/javascript" src="./lib/js-lib-data.js"></script>
+	<script type="text/javascript" src="./lib/js-lib-generic.js"></script>
+	<script type="text/javascript" >
+/* TO LOOK FOR TRANSITION CSS CAPABILITY */
+/*
+	// will give vendor prefixed stuff
+	for( prop in document.body.style ){ if( prop.indexOf('Transition') > -1 ){ console.info(prop); } }
+	// will give regular
+	for( prop in document.body.style ){ if( prop.indexOf('transition') > -1 ){ console.info(prop); } }
+*/
+
+function startPage(){
+	document.getElementById('question').innerHTML = msg['addition'];
+	/*
+	document.getElementById('choice-1').childNodes[0].innerHTML = msg['quick'];
+	document.getElementById('choice-2').childNodes[0].innerHTML = msg['customize'];
+	document.getElementById('choice-3').childNodes[0].innerHTML = msg['analyze'];
+	document.getElementById('choice-4').childNodes[0].innerHTML = msg['language'];
+	*/
+	setupLink(document.getElementById('choice-1'),msg['quick'],'./pages/play.htm');
+	setupLink(document.getElementById('choice-2'),msg['customize'],'./pages/configure.htm');
+	setupLink(document.getElementById('choice-3'),msg['analyze'],'./pages/analyze.htm');
+	setupLink(document.getElementById('choice-4'),msg['language'],'./pages/select-language.htm');
+	resizeToMax(document.getElementById("game-content"));
+	onresize = makeDebounced( function(){ resizeToMax(document.getElementById("game-content")); }, 50, false);
+}
+
+onload = function(){
+	loadTranslation('./lang/',startPage);
+};
+</script>
+
+</body>
+</html>
+

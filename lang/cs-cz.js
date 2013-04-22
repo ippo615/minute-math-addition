@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Czech",
+	"language-key":"cs-cz",
+	"begin":"začít",
+	"right":"právo",
+	"wrong":"špatně",
+	"erase":"vymazat",
+	"quick":"rychlý",
+	"customize":"přizpůsobit",
+	"analyze":"analyzovat",
+	"language":"jazyk",
+	"addition":"přidání",
+	"max":"maximum",
+	"min":"minimální",
+	"count":"počítat",
+	"play":"hrát",
+	"total":"celkový",
+	"stats":"statistiky"
+};

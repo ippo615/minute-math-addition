@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Croatian",
+	"language-key":"hr",
+	"begin":"početi",
+	"right":"pravo",
+	"wrong":"pogrešno",
+	"erase":"brisati",
+	"quick":"brz",
+	"customize":"prilagoditi",
+	"analyze":"analizirati",
+	"language":"jezik",
+	"addition":"dodatak",
+	"max":"maksimum",
+	"min":"minimum",
+	"count":"brojati",
+	"play":"igrati",
+	"total":"ukupan",
+	"stats":"statistike"
+};

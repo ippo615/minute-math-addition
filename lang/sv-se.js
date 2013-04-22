@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Swedish",
+	"language-key":"sv-se",
+	"begin":"börjar",
+	"right":"höger",
+	"wrong":"fel",
+	"erase":"radera",
+	"quick":"snabb",
+	"customize":"skräddarsy",
+	"analyze":"analysera",
+	"language":"språk",
+	"addition":"Dessutom",
+	"max":"maximal",
+	"min":"minimum",
+	"count":"räkna",
+	"play":"spela",
+	"total":"totalt",
+	"stats":"statistik"
+};

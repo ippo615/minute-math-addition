@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.acipo.math.addition" 
+        version   = "0.0.1">
+
+    <name>Minute Math Addition</name>
+
+    <description>
+	A simple addition game.
+    </description>
+
+    <author href="http://github.com/ippo615/minute-math-addition" email="andrewippoliti@gmail.com">
+        Andrew Ippoliti
+    </author>
+
+    <preference name="permissions" value="none"/>
+
+    <!-- Required -->
+    <icon src="icon.png" width="96" height="96" />
+    <!-- Special icons --->
+    <icon src="icons/icon-36.png" width="36" height="36" gap:platform="android" gap:density="ldpi" />
+    <icon src="icons/icon-48.png" width="48" height="48" gap:platform="android" gap:density="mdpi" />
+    <icon src="icons/icon-72.png" width="72" height="72" gap:platform="android" gap:density="hdpi" />
+    <icon src="icons/icon-96.png" width="96" height="96" gap:platform="android" gap:density="xhdpi" />
+    <icon src="icons/icon-64.png" width="64" height="64" gap:platform="webos" />
+    <icon src="icons/icon-48.png" width="48" height="48" gap:platform="winphone" />
+
+</widget>

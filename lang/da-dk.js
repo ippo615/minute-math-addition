@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Danish",
+	"language-key":"da-dk",
+	"begin":"begynde",
+	"right":"højre",
+	"wrong":"forkert",
+	"erase":"slette",
+	"quick":"hurtig",
+	"customize":"tilpasse",
+	"analyze":"analysere",
+	"language":"sprog",
+	"addition":"Derudover",
+	"max":"maksimal",
+	"min":"minimum",
+	"count":"tælle",
+	"play":"spille",
+	"total":"samlede",
+	"stats":"statistik"
+};

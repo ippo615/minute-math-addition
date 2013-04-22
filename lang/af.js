@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Afrikaans",
+	"language-key":"af",
+	"begin":"begin",
+	"right":"korrek",
+	"wrong":"verkeerd",
+	"erase":"vee",
+	"quick":"vinnige",
+	"customize":"pas",
+	"analyze":"analiseer",
+	"language":"taal",
+	"addition":"Daarbenewens",
+	"max":"maksimum",
+	"min":"minimum",
+	"count":"hoeveelheid",
+	"play":"speel",
+	"total":"totale",
+	"stats":"stats"
+};

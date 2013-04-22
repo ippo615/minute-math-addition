@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Malay",
+	"language-key":"ms",
+	"begin":"mula",
+	"right":"betul",
+	"wrong":"salah",
+	"erase":"memadam",
+	"quick":"cepat",
+	"customize":"menyesuaikan",
+	"analyze":"menganalisis",
+	"language":"bahasa",
+	"addition":"Selain",
+	"max":"maksimum",
+	"min":"minimum",
+	"count":"mengira",
+	"play":"bermain",
+	"total":"jumlah",
+	"stats":"statistik"
+};

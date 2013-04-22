@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Serbian",
+	"language-key":"sr",
+	"begin":"почети",
+	"right":"право",
+	"wrong":"погрешно",
+	"erase":"брисати",
+	"quick":"брз",
+	"customize":"прилагодите",
+	"analyze":"анализирати",
+	"language":"језик",
+	"addition":"додатак",
+	"max":"максимум",
+	"min":"минимум",
+	"count":"рачунати",
+	"play":"игра",
+	"total":"укупан",
+	"stats":"статистика"
+};

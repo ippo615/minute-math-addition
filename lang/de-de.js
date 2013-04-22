@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"German",
+	"language-key":"de-de",
+	"begin":"beginnen",
+	"right":"richtig",
+	"wrong":"falsch",
+	"erase":"löschen",
+	"quick":"schnell",
+	"customize":"anpassen",
+	"analyze":"analysieren",
+	"language":"Sprache",
+	"addition":"Zusatz",
+	"max":"maximale",
+	"min":"Minimum",
+	"count":"zählen",
+	"play":"spielen",
+	"total":"insgesamt",
+	"stats":"Statistik"
+};

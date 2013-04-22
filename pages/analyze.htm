@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>Minute Math Addition</title>
+	<meta name="author" content="Andrew Ippoliti">
+
+	<!-- IN ANDROID BROWSER - enter "about:debug" in the address bar
+	     It should give you some extra options and a 'js console' -->
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<!-- Force the browser to use the device width as the viewport with -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link rel="stylesheet" href="../style/styles.css" />
+
+</head>
+<body>
+
+    <div id="game-content" >
+	<div class="question transition" id="question" >-</div>
+	<div class="answer transition correct" id="choice-1" >-</div>
+	<div class="answer transition incorrect" id="choice-2">-</div>
+	<div class="answer transition " id="choice-3">-</div>
+	<div class="answer transition " id="choice-4">-</div>
+    </div>
+
+<script type="text/javascript" src="../lib/js-lib-data.js"></script>
+<script type="text/javascript" src="../lib/js-lib-generic.js"></script>
+<script type="text/javascript">
+
+function showSessionStatsAnalisys(){
+	// show stats
+	var c4 = document.getElementById('choice-4');
+	var c3 = document.getElementById('choice-3');
+	var c2 = document.getElementById('choice-2');
+	var c1 = document.getElementById('choice-1');
+	var q0 = document.getElementById('question');
+	q0.innerHTML = msg["stats"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nRight2+nRight3+nRight4+nSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >+'+nExp+'</span>';
+	c4.innerHTML = '<span class="stat" >'+msg["erase"]+'</span>';
+	q0.onclick = function(){
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showTotalStatsAnalisys);
+	};
+}
+function showTotalStatsAnalisys(){
+	var c4 = document.getElementById('choice-4');
+	var c3 = document.getElementById('choice-3');
+	var c2 = document.getElementById('choice-2');
+	var c1 = document.getElementById('choice-1');
+	var q0 = document.getElementById('question');
+	q0.innerHTML = msg["total"];
+	c1.innerHTML = '<span class="stat" >'+msg["right"]+': '+nTotalRight1+'</span>';
+	c2.innerHTML = '<span class="stat" >'+msg["wrong"]+': '+(nTotalRight2+nTotalRight3+nTotalRight4+nTotalSkipped)+'</span>';
+	c3.innerHTML = '<span class="stat" >'+nTotalExp+'</span>';
+	c4.innerHTML = '<span class="stat" >'+msg["erase"]+'</span>';
+	q0.onclick = function(){
+		setupStatTransitions(timer,GLOBAL.animDelay,getRandomElementFrom(transitions),showSessionStatsAnalisys);
+	};
+}
+var transitions = [
+	["outRight","outRight","outRight","outRight","outRight"], // slide right
+	["outDown","outDown","outDown","outDown","outDown"], // slide down
+	["outDown","outLeft","outLeft","outRight","outRight"], // slide right/left
+	["outFade","outFade","outFade","outFade","outFade"] // fade
+];
+
+function erase(){
+	// data.clearAll(); // doesnt work on android - so just save everything as 0
+
+	data.save('nTotalAsked',0);
+	data.save('nTotalRight1',0);
+	data.save('nTotalRight2',0);
+	data.save('nTotalRight3',0);
+	data.save('nTotalRight4',0);
+	data.save('nTotalSkipped',0);
+	data.save('nTotalExp',0);
+	data.save('nAsked',0);
+	data.save('nRight1',0);
+	data.save('nRight2',0);
+	data.save('nRight3',0);
+	data.save('nRight4',0);
+	data.save('nSkipped',0);
+	data.save('nExp',0);
+
+	nTotalAsked = data.loadValid('nTotalAsked',0,data.int10);
+	nTotalRight1 = data.loadValid('nTotalRight1',0,data.int10);
+	nTotalRight2 = data.loadValid('nTotalRight2',0,data.int10);
+	nTotalRight3 = data.loadValid('nTotalRight3',0,data.int10);
+	nTotalRight4 = data.loadValid('nTotalRight4',0,data.int10);
+	nTotalSkipped = data.loadValid('nTotalSkipped',0,data.int10);
+	nTotalExp = data.loadValid('nTotalExp',0,data.int10);
+	nAsked = data.loadValid('nAsked',0,data.int10);
+	nRight1 = data.loadValid('nRight1',0,data.int10);
+	nRight2 = data.loadValid('nRight2',0,data.int10);
+	nRight3 = data.loadValid('nRight3',0,data.int10);
+	nRight4 = data.loadValid('nRight4',0,data.int10);
+	nSkipped = data.loadValid('nSkipped',0,data.int10);
+	nExp = data.loadValid('nExp',0,data.int10);
+
+	showTotalStatsAnalisys();
+}
+
+var isAnsweredCorrectly = 0;
+var nAttempts = 0;
+var baseExp = 0;
+// Totals for every time played
+var nTotalAsked = data.loadValid('nTotalAsked',0,data.int10);
+var nTotalRight1 = data.loadValid('nTotalRight1',0,data.int10);
+var nTotalRight2 = data.loadValid('nTotalRight2',0,data.int10);
+var nTotalRight3 = data.loadValid('nTotalRight3',0,data.int10);
+var nTotalRight4 = data.loadValid('nTotalRight4',0,data.int10);
+var nTotalSkipped = data.loadValid('nTotalSkipped',0,data.int10);
+var nTotalExp = data.loadValid('nTotalExp',0,data.int10);
+// Just for this session
+var nAsked = data.loadValid('nAsked',0,data.int10);
+var nRight1 = data.loadValid('nRight1',0,data.int10);
+var nRight2 = data.loadValid('nRight2',0,data.int10);
+var nRight3 = data.loadValid('nRight3',0,data.int10);
+var nRight4 = data.loadValid('nRight4',0,data.int10);
+var nSkipped = data.loadValid('nSkipped',0,data.int10);
+var nExp = data.loadValid('nExp',0,data.int10);
+
+var timer = createTimeQueue();
+
+var GLOBAL = {
+	// height = width * aspectRatio / 100
+	aspectRatio: 100,
+	// time between animated events
+	animDelay: 300,
+	// the lowest operand to use
+	minOp: 0,
+	// the highest operand to use
+	maxOp: 99
+};
+
+function startPage(){
+	resizeToMax(document.getElementById("game-content"));
+	onresize = function(){ resizeToMax(document.getElementById("game-content")); };
+	document.getElementById('choice-4').onclick = erase;
+	showSessionStatsAnalisys();
+}
+
+onload = function(){
+	loadTranslation('../lang/',startPage);
+};
+</script>
+
+</body>
+</html>
+

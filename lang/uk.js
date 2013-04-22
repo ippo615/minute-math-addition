@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Ukrainian",
+	"language-key":"uk",
+	"begin":"починати",
+	"right":"право",
+	"wrong":"неправильний",
+	"erase":"прати",
+	"quick":"швидко",
+	"customize":"налаштувати",
+	"analyze":"аналізувати",
+	"language":"мову",
+	"addition":"додаток",
+	"max":"максимальний",
+	"min":"мінімальний",
+	"count":"вважати",
+	"play":"грати",
+	"total":"загальний",
+	"stats":"статистика"
+};

@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"French",
+	"language-key":"fr-fr",
+	"begin":"commencer",
+	"right":"droite",
+	"wrong":"faux",
+	"erase":"effacer",
+	"quick":"rapide",
+	"customize":"personnaliser",
+	"analyze":"analyser",
+	"language":"langue",
+	"addition":"adjonction",
+	"max":"maximale",
+	"min":"minimum",
+	"count":"dénombrer",
+	"play":"jouer",
+	"total":"totale",
+	"stats":"statistiques"
+};

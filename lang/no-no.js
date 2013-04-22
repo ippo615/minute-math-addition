@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Norwegian",
+	"language-key":"no-no",
+	"begin":"begynne",
+	"right":"høyre",
+	"wrong":"feil",
+	"erase":"slette",
+	"quick":"rask",
+	"customize":"tilpasse",
+	"analyze":"analysere",
+	"language":"språk",
+	"addition":"tillegg",
+	"max":"maksimal",
+	"min":"minimum",
+	"count":"telle",
+	"play":"spille",
+	"total":"total",
+	"stats":"statistikk"
+};

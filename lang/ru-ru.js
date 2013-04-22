@@ -1,0 +1,19 @@
+var msg = {
+	"language-name":"Russian",
+	"language-key":"ru-ru",
+	"begin":"начинать",
+	"right":"право",
+	"wrong":"неправильный",
+	"erase":"стирать",
+	"quick":"быстро",
+	"customize":"настроить",
+	"analyze":"анализировать",
+	"language":"язык",
+	"addition":"дополнение",
+	"max":"максимальный",
+	"min":"минимальный",
+	"count":"считать",
+	"play":"играть",
+	"total":"общий",
+	"stats":"статистика"
+};
