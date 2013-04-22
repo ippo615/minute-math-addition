@@ -91,7 +91,7 @@ a, .link{
 	width: 200%;
 	overflow: hidden;
 	font-size: 16%;
-	tezt-align: left;
+	text-align: left;
 	border-bottom: 2px solid black;
 	vertical-align: middle;
 	background: none;

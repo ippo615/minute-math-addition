@@ -1,3 +1,8 @@
+### April 21, 2013
+Fixed typo in `styles.css`. Fixed bug in default language selection, if
+the user's language is not in my list then no language loads - I set en-us
+to be the default.
+
 ### April 20, 2013
 Improved language selection.
 
