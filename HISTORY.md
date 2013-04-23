@@ -1,3 +1,6 @@
+### April 22, 2013
+Added link to Google Play in `README.md`
+
 ### April 21, 2013
 Fixed typo in `styles.css`. Fixed bug in default language selection, if
 the user's language is not in my list then no language loads - I set en-us

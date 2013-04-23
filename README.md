@@ -1,5 +1,11 @@
 Minute Math: Addition
 ==============================================================================
+
+<a href="https://play.google.com/store/apps/details?id=com.acipo.math.addition">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+</a>
+
 This is a game for practicing addition. It presents randomly generated
 addition problems. These questions can be customized. 
 
